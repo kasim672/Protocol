@@ -20,7 +20,7 @@ This RFC introduces a **Zero Knowledge Proof (ZKP) extension** for the **Context
 
 ## 2. Cryptographic Architecture
 
-The protocol uses a delegated proving model based on **zk-SNARKs** (specifically Groth16 over the BN254 elliptic curve).
+The protocol uses a delegated zero-knowledge proving model supporting various schemes (e.g., Groth16, PLONK, Halo2).
 
 ```
 +--------------------------------------------------------+
@@ -49,7 +49,7 @@ The protocol uses a delegated proving model based on **zk-SNARKs** (specifically
 
 ### Proving System Parameters
 * **Schema Scheme**: BN254 Pairing-Friendly Elliptic Curve.
-* **Proving System**: Groth16 zk-SNARK.
+* **Proving System**: Agnostic (e.g., Groth16, PLONK, Halo2).
 * **Circuit Registry**: Supported assertions are mapped to specific circuits (e.g., `range_proof`, `membership_proof`, `string_equality`).
 
 ---
@@ -101,7 +101,7 @@ Host: identity.memact.org
      - `operator`: Numeric code representing the operator (e.g., `LT` = 1).
      - `comparison_value`: Numerical/hashed representation of the comparison target (`2008-07-11`).
      - `nonce`: The client's unique nonce.
-4. The IdP generates the proof (`pi_a`, `pi_b`, `pi_c`) and associates it with the temporary authorization code.
+4. The IdP generates the proof payload and associates it with the temporary authorization code.
 
 ### 3.3. Token Response
 The Client exchanges the authorization code for tokens using a POST request to `/token`. 
@@ -124,12 +124,8 @@ The response returns an Access Token containing a custom claims parameter `cap_z
       "nonce": "d3b07384d113edec"
     },
     "proof": {
-      "pi_a": ["0x123...", "0x456..."],
-      "pi_b": [
-        ["0x789...", "0xabc..."],
-        ["0xdef...", "0x012..."]
-      ],
-      "pi_c": ["0x345...", "0x678..."]
+      "proving_scheme": "groth16",
+      "proof_data": "0x123456789abcdef..."
     }
   }
 }

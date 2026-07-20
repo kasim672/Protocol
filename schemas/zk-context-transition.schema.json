@@ -34,44 +34,25 @@
     },
     "proof": {
       "type": "object",
-      "description": "The serialized groth16 ZK proof elements validating this transaction transition",
+      "description": "The cryptographic proof payload validating this transaction transition",
       "required": [
-        "pi_a",
-        "pi_b",
-        "pi_c"
+        "proving_scheme",
+        "proof_data"
       ],
       "properties": {
-        "pi_a": {
-          "type": "array",
-          "minItems": 2,
-          "maxItems": 2,
-          "items": {
-            "type": "string",
-            "pattern": "^0x[a-fA-F0-9]+$"
-          }
+        "proving_scheme": {
+          "type": "string",
+          "enum": [
+            "groth16",
+            "plonk",
+            "halo2"
+          ],
+          "description": "The ZK proving system used to generate the proof"
         },
-        "pi_b": {
-          "type": "array",
-          "minItems": 2,
-          "maxItems": 2,
-          "items": {
-            "type": "array",
-            "minItems": 2,
-            "maxItems": 2,
-            "items": {
-              "type": "string",
-              "pattern": "^0x[a-fA-F0-9]+$"
-            }
-          }
-        },
-        "pi_c": {
-          "type": "array",
-          "minItems": 2,
-          "maxItems": 2,
-          "items": {
-            "type": "string",
-            "pattern": "^0x[a-fA-F0-9]+$"
-          }
+        "proof_data": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]+$",
+          "description": "The hex-encoded serialized proof string"
         }
       },
       "additionalProperties": false

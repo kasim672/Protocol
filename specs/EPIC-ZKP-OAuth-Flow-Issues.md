@@ -25,7 +25,16 @@ This document outlines the specific implementation issues to be created in the i
   Author JSON schemas for `zkp-request` and `zkp-response` to validate the structures for incoming client queries and outgoing token assertions.
 * **Acceptance Criteria**:
   * JSON schema files created in `schemas/zkp-request.schema.json` and `schemas/zkp-response.schema.json`.
-  * Validate that fields like `circuit_id`, `assertion`, `proof` (containing `pi_a`, `pi_b`, `pi_c`), and `public_inputs` have strict types, min/max values, and regex matching.
+  * Validate that fields like `circuit_id`, `assertion`, `proof`, and `public_inputs` have strict types, min/max values, and regex matching.
+
+### Issue PROTOCOL-103: Rewrite Cryptographic Verification (Issue #35)
+* **Type**: Refactor
+* **Priority**: High
+* **Description**:
+  Abstract the cryptographic verification models across the Protocol repository to be proving-system agnostic. This involves replacing hardcoded Groth16 (`pi_a`, `pi_b`, `pi_c`) structures with generalized `proving_scheme` and `proof_data` fields in JSON schemas and RFC specifications.
+* **Acceptance Criteria**:
+  * `RFC-004` and `RFC-005` mention generic zero-knowledge schemes (Groth16, PLONK, Halo2).
+  * `zkp-response`, `zk-consensus-block`, and `zk-context-transition` schemas use abstracted proof payloads.
 
 ---
 
