@@ -54,8 +54,9 @@ Applications contribute to the context by submitting a **Context Transition Tran
   "new_state_root": "0x5b7d9...",
   "claim_key": "0x98f21...",
   "proof": {
-    "proving_scheme": "groth16",
-    "proof_data": "0x..."
+    "pi_a": ["0x...", "0x..."],
+    "pi_b": [["0x...", "0x..."], ["0x...", "0x..."]],
+    "pi_c": ["0x...", "0x..."]
   },
   "public_inputs": {
     "old_state_root": "0x12a3f...",
